@@ -17,6 +17,8 @@ body {
 .register-container {
     width: 600px;
     padding: 20px;
+    margin-bottom: 80px;
+
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -81,4 +83,35 @@ body {
 
 .register-number-input {
     -moz-appearance: textfield;
+}
+
+@media (max-width: 768px) {
+    .register-container {
+        padding: 15px;
+        width: 400px;
+        margin-bottom: 80px;
+
+    }
+
+    .register-input,
+    .register-select,
+    .register-button {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .register-container {
+        padding: 10px;
+        width: 300px;
+        margin-bottom: 80px;
+
+    }
+
+    .register-input,
+    .register-select,
+    .register-button {
+        padding: 8px;
+        font-size: 14px;
+    }
 }

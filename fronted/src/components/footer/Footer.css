@@ -1,20 +1,21 @@
 .footer {
-/*     background-color: #282c34; */
-    background-color: #f1f1f1; /* Añade un color de fondo si lo deseas */
-
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    color: #61dafb;
-    text-align: center;
-    padding: 10px;
+  background-color: #f1f1f1;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  text-align: center;
+  padding: 10px 0; /* Añadido padding vertical para más espacio */
 }
 
-  
-  .footer p {
-    color: grey; 
-    margin: 0; 
-  }
-  
+.footer-text {
+  color: grey;
+  margin: 0;
+  font-size: small;
+}
+
+.footer-username {
+  color: #61dafb;
+  font-weight: bold; /* Hace el nombre de usuario más destacado */
+}
