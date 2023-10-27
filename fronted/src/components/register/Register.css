@@ -1,0 +1,98 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    
+    margin: 0;
+    background-color: #f4f4f4;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    border: solid red 2px;
+}
+
+
+.register-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.register-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+.register-title {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.register-label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.register-input,
+.register-select {
+    font-size: 15px;
+    padding: 8px 20px;
+    background-color: #f9f9f9;
+    border: 2px solid #e0e0e0;
+    transition: border-color 0.3s ease;
+    color: #333;
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.register-input:focus,
+.register-select:focus {
+    border-color: #61dafb;
+}
+
+.register-button {
+    background-color: #61dafb;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.register-button:hover {
+    background-color: #21a1f1;
+}
+
+.register-margin-bottom {
+    margin-bottom: 1rem;
+}
+
+.register-number-input::-webkit-inner-spin-button,
+.register-number-input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.register-number-input {
+    -moz-appearance: textfield;
+}

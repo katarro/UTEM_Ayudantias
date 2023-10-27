@@ -1,0 +1,46 @@
+.admin-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    border: 2px solid #66b2ff;
+    border-radius: 10px; /* Agregado para suavizar las esquinas */
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    width: 80%;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+
+.reset-password {
+    margin-top: 20px;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.reset-password:hover {
+    text-decoration: underline;
+}

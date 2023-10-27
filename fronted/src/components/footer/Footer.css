@@ -1,0 +1,20 @@
+.footer {
+/*     background-color: #282c34; */
+    background-color: #f1f1f1; /* Añade un color de fondo si lo deseas */
+
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    color: #61dafb;
+    text-align: center;
+    padding: 10px;
+}
+
+  
+  .footer p {
+    color: grey; 
+    margin: 0; 
+  }
+  

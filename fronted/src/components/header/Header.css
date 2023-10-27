@@ -1,0 +1,28 @@
+.header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: #282c34;
+    height: 8vh;
+
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nav-link {
+    color: #61dafb;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+    color:white;
+}
