@@ -32,7 +32,7 @@ export default function State() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="state-container mt-5">
       <h1>Estado de la Postulación</h1>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">

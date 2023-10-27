@@ -3,9 +3,11 @@
     margin: 0 auto;
     padding: 20px;
     text-align: center;
-    border: 2px solid #66b2ff;
-    border-radius: 10px; /* Agregado para suavizar las esquinas */
+    border-radius: 10px; /* Suaviza las esquinas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    background-color: #fff; /* Fondo blanco para que la sombra se vea mejor */
 }
+
 
 .input-group {
     margin-bottom: 20px;
