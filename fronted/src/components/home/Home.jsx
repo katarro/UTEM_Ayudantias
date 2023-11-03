@@ -10,6 +10,8 @@ function Home() {
       <Link to="/postular" className="btn btn-primary">Postular</Link>
       <Link to="/estado" className="btn btn-secondary">Ver Estado</Link>
       <Link to="/admin" className='btn btn-danger'>Administrador</Link>
+      <Link to="/login-profesor" className='btn btn-success'>Profesores</Link>
+
     </div>
   );
 }

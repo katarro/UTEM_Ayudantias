@@ -20,12 +20,12 @@ function Header() {
       <Navbar.Brand href="/"></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="d-lg-none" onClick={handleShow} />
       <Navbar.Collapse id="basic-navbar-nav" className="d-none d-lg-flex">
-        <Nav className="ms-auto">
           <Nav.Link as={Link} to="/" onClick={handleClose} className="menu-link">Inicio</Nav.Link>
+        <Nav className="ms-auto">
           <Nav.Link as={Link} to="/postular" onClick={handleClose} className="menu-link">Postular</Nav.Link>
           <Nav.Link as={Link} to="/estado" onClick={handleClose} className="menu-link">Ver Estado</Nav.Link>
           <Nav.Link as={Link} to="/admin" onClick={handleClose} className="menu-link">Administrador</Nav.Link>
-
+          <Nav.Link as={Link} to="/login-profesor" onClick={handleClose} className="menu-link">Profesor</Nav.Link>
         </Nav>
       </Navbar.Collapse>
       <Offcanvas show={show} onHide={handleClose} placement="end" className="d-lg-none">

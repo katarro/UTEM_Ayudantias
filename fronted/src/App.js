@@ -7,7 +7,10 @@ import Home from './components/home/Home';
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
 import AdminIn from './components/adminIn/AdminIn';
+import ProfesorIn from "./components/profesorin/ProfesorIn"
+import LoginProfesor from './components/profesor/LoginProfesor'
 import PostulanteDetails from './components/postulanteDetails/PostulanteDetails';
+import PostulanteProfesor from './components/postulanteDetailsProfesor/PostulanteProfesor';
 import React from 'react';
 
 function App() {
@@ -21,6 +24,11 @@ function App() {
           <Route path="/admin" element={<Admin />} />
           <Route path="/adminin" element={<AdminIn/>}/>
           <Route path="/adminin/:rut" element={<PostulanteDetails />} />
+          <Route path="/login-profesor" element={<LoginProfesor />} />
+          <Route path="/profesorin" element={<ProfesorIn />} />
+          <Route path="/profesorin/:rut" element={<PostulanteProfesor />} />
+
+
 
         </Routes>
         <Footer/> 
