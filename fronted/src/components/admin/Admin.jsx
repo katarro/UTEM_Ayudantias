@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import {Link} from "react-router-dom";
 import './Admin.css';
+
 
 function Administrador() {
   const [email, setEmail] = useState('');
@@ -33,7 +35,7 @@ function Administrador() {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+            /* required */
           />
         </div>
         {!isResettingPassword && (
@@ -44,13 +46,15 @@ function Administrador() {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
+              /* required */
             />
           </div>
         )}
-        <button type="submit" className="btn">
+        {/* <button type="submit" className="btn">
           {isResettingPassword ? 'Restablecer Contraseña' : 'Iniciar Sesión'}
-        </button>
+        </button> */}
+        <Link to="/adminin" className="btn btn-primary">Entrar</Link>
+
       </form>
       {!isResettingPassword ? (
         <p className="reset-password" onClick={() => setIsResettingPassword(true)}>
