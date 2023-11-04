@@ -15,6 +15,24 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
-      
+###########################################################################
+
+
+  # postulaciones-service:
+  #   build:
+  #     context: ./microservices/postulaciones-service
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "4000:4000"
+  #   environment:
+  #     - NODE_ENV=production
+  #   networks:
+  #     - backend-network
+
+
+
+# networks:
+#   backend-network:
+
 volumes:
   postgres_data:

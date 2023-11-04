@@ -4,6 +4,75 @@ import { confirmAlert } from 'react-confirm-alert';
 export const useForm = (initialState = {}) => {
   const [formData, setFormData] = useState(initialState);
 
+  const validarYConvertirDatos = (formData) => {
+    const codigoCarreraInt = parseInt(formData.codigoCarrera);
+    const notaFloat = parseFloat(formData.nota);
+
+    if (isNaN(codigoCarreraInt) || isNaN(notaFloat)) {
+      throw new Error('La conversión de código de carrera o nota ha fallado.');
+    }
+
+    return {
+      ...formData,
+      codigo_carrera: codigoCarreraInt,
+      nota: notaFloat
+    };
+  };
+
+  const enviarDatos = async (datosFormulario) => {
+    const response = await fetch('http://localhost:4000/api/postular', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(datosFormulario),
+    });
+    return response;
+  };
+
+  const manejarRespuesta = async (response) => {
+    if (response.ok) {
+      const result = await response.json();
+      alert("Envío de postulación exitoso!");
+      console.log('Respuesta del servidor:', result);
+      limpiarFormulario();
+    } else {
+      mostrarErroresDeRespuesta(response);
+    }
+  };
+
+  const limpiarFormulario = () => {
+    setFormData({
+      nombre: '',
+      rut: '',
+      correo: '',
+      codigo_carrera: '',
+      asignatura: '',
+      nota: ''
+    });
+  };
+
+  const mostrarErroresDeRespuesta = async (response) => {
+    const errorResult = await response.json();
+    if (errorResult.errores && errorResult.errores.length > 0) {
+      const mensajesDeError = errorResult.errores.map(e => `${e.field}: ${e.message}`).join('\n');
+      alert("Errores de validación:\n" + mensajesDeError);
+    } else {
+      alert("Error en el envío: " + errorResult.mensaje);
+    }
+  };
+
+  const finalizarEnvio = async () => {
+    try {
+      const datosFormulario = validarYConvertirDatos(formData);
+      console.log(datosFormulario);
+      const response = await enviarDatos(datosFormulario);
+      await manejarRespuesta(response);
+    } catch (error) {
+      alert("Error al conectar con el servidor: " + error.message);
+    }
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -16,7 +85,6 @@ export const useForm = (initialState = {}) => {
     const rut = e.target.rawValue;
     setFormData({ ...formData, rut });
   };
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,23 +110,9 @@ export const useForm = (initialState = {}) => {
         },
         {
           label: 'No, cancelar',
-          onClick: () => {}
+          onClick: () => { }
         }
       ]
-    });
-  };
-
-  const finalizarEnvio = () => {
-    alert("Envio de postulacion exitosa!");
-    console.log('Datos del formulario:', [formData]);
-    // Limpiar el formulario
-    setFormData({
-      nombre: '',
-      rut: '',
-      correo: '',
-      codigoCarrera: '',
-      asignatura: '',
-      nota: ''
     });
   };
 
@@ -95,6 +149,5 @@ export const useForm = (initialState = {}) => {
     return regex.test(correo);
   };
 
-
-  return [handleSubmit,formData, handleChange, handleChangeRut];
+  return [handleSubmit, formData, handleChange, handleChangeRut];
 };

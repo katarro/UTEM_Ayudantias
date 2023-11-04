@@ -1,80 +1,80 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Adminin.css'; // Asegúrate de importar tu archivo CSS
 
 export default function AdminIn() {
-
-  const data = [
-    {
-      nombre: "Juan Perez",
-      rut: "12.345.678-9",
-      correo: "juan.perez@utem.cl",
-      codigoCarrera: "ING01",
-      asignatura: "Intoduccion a la Programacion",
-      nota: 6.5,
-      estado: "Pendiente"
-    },
-    {
-      nombre: "María González",
-      rut: "15.678.910-K",
-      correo: "maria.gonzalez@utem.cl",
-      codigoCarrera: "ING02",
-      asignatura: "Algoritmos y Programacion",
-      nota: 5.8,
-      estado: "Pendiente"
-    },
-    {
-      nombre: "Carlos Rodríguez",
-      rut: "17.890.123-5",
-      correo: "carlos.rodriguez@utem.cl",
-      codigoCarrera: "ING03",
-      asignatura: "Estrcutura de Datos",
-      nota: 4.7,
-      estado: "Pendiente"
-    },
-    {
-      nombre: "Ana López",
-      rut: "18.234.567-8",
-      correo: "ana.lopez@utem.cl",
-      codigoCarrera: "ING04",
-      asignatura: "Estrcutura de Datos",
-      nota: 6.2,
-      estado: "Pendiente"
-    },
-    {
-      nombre: "Eduardo Morales",
-      rut: "19.345.678-4",
-      correo: "eduardo.morales@utem.cl",
-      codigoCarrera: "ING05",
-      asignatura: "Algoritmos y Programacion",
-      nota: 6.9,
-      estado: "Pendiente"
-    },
-    {
-      nombre: "Sofía Castro",
-      rut: "20.456.789-0",
-      correo: "sofia.castro@utem.cl",
-      codigoCarrera: "ING06",
-      asignatura: "Intoduccion a la Programacion",
-      nota: 5.4,
-      estado: "Pendiente"
-    }
-  ];
+  const [postulantes, setPostulantes] = useState([]);
+  const [filteredPostulantes, setFilteredPostulantes] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(true); // Estado para controlar el indicador de carga
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const cargarPostulantes = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/adminin');
+        if (!response.ok) {
+          throw new Error('Hubo un problema al obtener los datos');
+        }
+        const data = await response.json();
+        setPostulantes(data.postulantes); // Asumiendo que la API devuelve un objeto con una propiedad postulantes
+        setFilteredPostulantes(data.postulantes); // Inicializar los postulantes filtrados
+      } catch (error) {
+        console.error('Error al cargar los postulantes:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    cargarPostulantes();
+  }, []);
+
+  useEffect(() => {
+    // Filtrar postulantes cuando el searchTerm cambie
+    const results = postulantes.filter(postulante =>
+      postulante.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      postulante.rut.includes(searchTerm)
+    );
+    setFilteredPostulantes(results);
+  }, [searchTerm, postulantes]);
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   const handleItemClick = (item) => {
     navigate(`/adminin/${item.rut}`, { state: { postulante: item } });
   };
 
+  if (isLoading) {
+    return <div className="loader">Cargando...</div>;
+  }
+
   return (
-    <div className="grid-container">
-      {data.map((item, index) => (
-        <div key={index} className="grid-item" onClick={() => handleItemClick(item)}>
-          <div className="item-nombre">{item.nombre}</div>
-          <div className="item-asignatura">{item.asignatura}</div>
-          <div className="item-nota">{item.nota}</div>
+    <div className="container mt-5 mb-5">
+      <div className="row mb-4">
+        <div className="col-12">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Buscar por nombre o RUT..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
         </div>
-      ))}
+      </div>
+      <div className="row">
+        {filteredPostulantes.map((item, index) => (
+          <div key={index} className="col-sm-6 col-lg-4 mb-4" onClick={() => handleItemClick(item)}>
+            <div className="card h-100">
+              <div className="card-body">
+                <h5 className="card-title">{item.nombre}</h5>
+                <h6 className="card-subtitle mb-2 text-muted">{item.asignatura}</h6>
+                <p className="card-text">{item.nota}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

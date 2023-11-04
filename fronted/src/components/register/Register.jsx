@@ -11,7 +11,7 @@ export default function Register() {
     nombre: '',
     rut: '',
     correo: '',
-    codigoCarrera: '',
+    codigo_carrera: '',
     asignatura: '',
     nota: ''
   };
@@ -51,7 +51,7 @@ export default function Register() {
           />
         </div>
         <InputField label="Correo UTEM" id="correo" name="correo" type="email" value={formData.correo} onChange={handleChange} />
-        <SelectField label="Código Carrera" id="codigoCarrera" name="codigoCarrera" value={formData.codigoCarrera} onChange={handleChange} options={carreraOptions} />
+        <SelectField label="Código Carrera" id="codigoCarrera" type="number" name="codigoCarrera" value={formData.codigoCarrera} onChange={handleChange} options={carreraOptions} />
         <SelectField label="Asignatura" id="asignatura" name="asignatura" value={formData.asignatura} onChange={handleChange} options={asignaturaOptions} />
         <InputField label="Nota en la asignatura" id="nota" name="nota" type="number" value={formData.nota} onChange={handleChange} />
         <button type="submit" className="btn btn-primary">Enviar</button>

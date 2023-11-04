@@ -3,8 +3,7 @@ import "./State.css";
 import Cleave from 'cleave.js/react';
 
 export default function State() {
-  const [estadoPostulacion, setEstadoPostulacion] = useState('Pendiente');
-
+  const [estadoPostulacion, setEstadoPostulacion] = useState('');
   const [formData, setFormData] = useState({
     rut: '',
   });
@@ -14,15 +13,24 @@ export default function State() {
     setFormData({ ...formData, rut });
   };
 
-  const verificarPostulacion = () => {
-    // Aquí iría la lógica para hacer una petición a la base de datos
-    // Por ahora, vamos a simularlo con una función
-
-    // Simulando que los RUTs terminados en número par están aprobados
-    if (parseInt(formData.rut.slice(-2, -1)) % 2 === 0) {
-      setEstadoPostulacion('Aprobado');
-    } else {
-      setEstadoPostulacion('Rechazado');
+  const verificarPostulacion = async () => {
+    const rut = formData.rut; 
+    console.log(rut)
+    const url = `http://localhost:4000/api/estado/${rut}`;
+  
+    try {
+      const response = await fetch(url);
+  
+      if (response.ok) {
+        const result = await response.json();
+        // Actualizar el estado con la información obtenida de la API
+        setEstadoPostulacion(result.postulacion.estado);
+      } else {
+        throw new Error('El rut ingresado no está registrado');
+      }
+    } catch (error) {
+      console.error('Error al realizar la petición:', error);
+      alert('Error al verificar el estado de la postulación: ' + error.message);
     }
   };
 
@@ -51,9 +59,11 @@ export default function State() {
         </div>
         <button type="submit" className="btn btn-primary">Verificar Estado</button>
       </form>
-      <div className={`alert ${estadoPostulacion === 'Aprobado' ? 'alert-success' : estadoPostulacion === 'Rechazado' ? 'alert-danger' : 'alert-warning'} mt-4`} role="alert">
-        Tu postulación está: {estadoPostulacion}
-      </div>
+      {formData.rut && estadoPostulacion && (
+        <div className={`alert ${estadoPostulacion === 'Aprobado' ? 'alert-success' : estadoPostulacion === 'Rechazado' ? 'alert-danger' : 'alert-warning'} mt-4`} role="alert">
+          Tu postulación está: {estadoPostulacion}
+        </div>
+      )}
     </div>
   );
 }
