@@ -1,37 +1,209 @@
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(200px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
+.container{
+  height: 80vh;
+  width: 100vw;
+  margin-top: 50px;
 }
 
-.grid-item {
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  transition: transform 0.2s;
+.search-bar {
+  width: 50%;
+  margin: 1rem auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-top: -500px;
+}
+
+.admin-container {
+
+  max-width: 1000px; /* Máximo ancho del contenedor */
+  margin: 0 auto; /* Centra el contenedor */
+  display: flex; /* Utiliza flexbox para organizar los hijos */
+  flex-direction: column; /* Organiza los hijos en una columna */
+  align-items: stretch; /* Estira los hijos para que llenen el ancho del contenedor */
+}
+
+
+.row-container {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 0.5rem 0;
   cursor: pointer;
 }
 
-.grid-item:hover {
-  transform: scale(1.05);
+.row-container:hover {
+  background-color: #f7f7f7;
 }
 
-.item-nombre {
+.row-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 1rem;
+
+}
+
+.row-title {
   font-size: 1.2rem;
-  font-weight: bold;
-  color: #333;
+  margin-right: 1rem;
 }
 
-.item-asignatura {
+.row-subtitle {
   font-size: 1rem;
   color: #666;
-  margin-top: 0.5rem;
+  margin-right: 1rem;
+
 }
 
-.item-nota {
+.row-text {
   font-size: 1rem;
-  color: #59c4e1; /* Un color verde para la nota */
-  margin-top: 0.5rem;
-  font-weight: bold;
+  color: #333;
+
+}
+
+
+.row-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Ajusta esto según el ancho deseado */
+  margin-bottom: 10px; /* Espacio entre filas */
+  cursor: pointer;
+}
+
+.row-content {
+  display: flex;
+  width: 100%;
+}
+
+.nombre, .asignatura, .nota {
+  flex: 1; /* Esto asignará el mismo espacio a cada columna */
+  display: flex;
+  justify-content: center; /* Esto centrará el contenido horizontalmente */
+  align-items: center; /* Esto centrará el contenido verticalmente */
+}
+
+.nombre {
+  justify-content: flex-start; /* Alinea el nombre a la izquierda */
+}
+
+.nota {
+  justify-content: flex-end; /* Alinea la nota a la derecha */
+}
+/*******************************/
+
+.filter-buttons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 20px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.filter-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  background-color: #ffc107;
+}
+
+/* Estilos para los controles de ordenación */
+.sort-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sort-btn {
+  padding: 5px 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.sort-btn:hover {
+  background-color: #f8f9fa;
+  border-color: #007bff;
+}
+
+/* Estilos para los botones de filtro */
+.filter-buttons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.clean-filter{
+  text-align: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.filter-btn {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 20px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.filter-btn:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  background-color: #ffc107;
+}
+
+
+
+
+
+
+
+
+/* Añade media queries si necesitas ajustar para dispositivos más pequeños */
+@media (max-width: 768px) {
+  .search-bar,
+  .admin-container {
+    width: 100%;
+  }
+
+  .row-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .row-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .row-title,
+  .row-subtitle,
+  .row-text {
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
 }
