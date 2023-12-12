@@ -15,7 +15,6 @@ CREATE TABLE postulantes (
 CREATE TABLE profesores (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
-    rut VARCHAR(20) NOT NULL UNIQUE,
     correo VARCHAR(255) UNIQUE NOT NULL,
     contrasena TEXT NOT NULL
 );

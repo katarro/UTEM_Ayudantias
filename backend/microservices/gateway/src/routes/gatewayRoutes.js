@@ -4,7 +4,6 @@ const express = require("express");
 const router = express.Router();
 const postulacionesRoutes = require("../../../postulaciones-service/src/routes/postulacionesRoutes");
 const adminRoutes = require("../../../administrador-service/src/routes/administradorRoutes");
-const authRoutes = require("../../../login-service/src/routes/loginRoutes");
 
 const {
   login,
