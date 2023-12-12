@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './PostulanteDetails.css'
+import Header from '../header/Header';
 
 export default function PostulanteDetails() {
   const location = useLocation();
 
   // Utiliza useState para manejar el estado del postulante
   const [postulante, setPostulante] = useState(location.state?.postulante);
+  const [observacion, setObservacion] = useState('');
 
   const actualizarEstadoPostulante = async (nuevoEstado) => {
     const isConfirmed = window.confirm(`¿Seguro que desea ${nuevoEstado === 'Aprobado' ? 'Aceptar' : 'Rechazar'} al alumno?`);
@@ -23,7 +25,7 @@ export default function PostulanteDetails() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ estado: nuevoEstado }),
+        body: JSON.stringify({ estado: nuevoEstado, observacion: observacion }),
       });
 
       if (response.ok) {
@@ -33,8 +35,10 @@ export default function PostulanteDetails() {
         // Actualiza el estado del postulante en el componente
         setPostulante(prevPostulante => ({
           ...prevPostulante,
-          estado: nuevoEstado
+          estado: nuevoEstado,
+          observacion: observacion
         }));
+        setObservacion('')
       } else {
         throw new Error('No se pudo actualizar el estado de la postulación');
       }
@@ -43,6 +47,15 @@ export default function PostulanteDetails() {
       alert(`Error al ${nuevoEstado === 'Aprobado' ? 'aceptar' : 'rechazar'} la postulación: ` + error.message);
     }
   };
+
+  function formatRut(rut) {
+    const cleanRut = rut.replace(/[^0-9kK]/g, '');
+    const body = cleanRut.slice(0, -1);
+    const dv = cleanRut.slice(-1).toUpperCase();
+    const formattedBody = body.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    return `${formattedBody}-${dv}`;
+  }
 
   const handleAccept = () => {
     actualizarEstadoPostulante('Aprobado');
@@ -57,25 +70,35 @@ export default function PostulanteDetails() {
   }
 
   return (
-    <div className='card'>
-      <h1>Detalles del Postulante</h1>
-      <p><strong>Nombre:</strong> {postulante.nombre}</p>
-      <p><strong>RUT:</strong> {postulante.rut}</p>
-      <p><strong>Correo UTEM:</strong> {postulante.correo}</p>
-      <p><strong>Código Carrera:</strong> {postulante.codigoCarrera}</p>
-      <p><strong>Asignatura:</strong> {postulante.asignatura}</p>
-      <p><strong>Nota:</strong> {postulante.nota}</p>
-      <p><strong>Estado:</strong> {postulante.estado}</p>
-      <strong>PreAprobacion:</strong>
-      {
-        postulante.pre_aprobacion
-          ? <p>Sí</p>
-          : <p>No</p>
-      }
+    <>
+      <Header />
+      <div className="container-card">
+        <div className='card'>
+          <h1>Detalles del Postulante</h1><br />
+          <p><strong>Nombre:</strong> {postulante.nombre}</p>
+          <p><strong>RUT:</strong> {formatRut(postulante.rut)}</p>
+          <p><strong>Correo UTEM:</strong> {postulante.correo}</p>
+          <p><strong>Código Carrera:</strong> {postulante.codigoCarrera}</p>
+          <p><strong>Asignatura:</strong> {postulante.asignatura}</p>
+          <p><strong>Nota:</strong> {postulante.nota}</p>
+          <p><strong>Estado:</strong> {postulante.estado}</p>
+          <div style={{ display: 'flex' }}>
+            <strong>Seleccionado: </strong>
+            {postulante.pre_aprobacion ? <p>Sí</p> : <p>No</p>}
+          </div>
 
 
-      <button className='btn btn-success' onClick={handleAccept}>Aceptar</button>
-      <button className='btn btn-danger' onClick={handleReject}>Rechazar</button>
-    </div>
+          <div className="observacion">
+            <textarea name="observacion" placeholder='Observaciones...' id="observacion" cols="52" rows="4" value={observacion} onChange={(e) => setObservacion(e.target.value)}></textarea>
+          </div>
+
+
+          <button className='btn btn-success' onClick={handleAccept}>Aceptar</button>
+          <button className='btn btn-danger' onClick={handleReject}>Rechazar</button>
+
+        </div>
+      </div>
+    </>
+
   );
 }

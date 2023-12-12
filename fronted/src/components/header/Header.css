@@ -1,39 +1,33 @@
-.header {
-    width: 100%;
-    background-color: #282c34;
-    height: 8vh;
-}
-.ms-auto{
-    margin-right: 25px !important;
-}
 .navbar {
-    background-color: #282c34;
+  background-color: #021c36;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100vw;
+  height: 10vh;
 }
-
-.navbar-dark .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%2361dafb' viewBox='0 0 30 30'%3E%3Cpath stroke='%2361dafb' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-
-.offcanvas {
-    width: 50%;
-}
-
-.nav-link {
-    color: #61dafb;
-    padding: 0.5rem 1rem;
-    display: block;
-    font: bold;
+.ms-auto {
+  margin-right: 25px !important;
 }
 
 .nav-link:hover {
-    color: white;
+  color: #3399cc;
 }
 
-.nav {
-    width: 100%;
+.container-inicio:hover {
+  background-color: #3399cc;
 }
 
 .menu-link {
-    font-size: 1rem; /* O el tamaño que prefieras */
-  }
-  
+  font-size: 1.2rem; /* O el tamaño que prefieras */
+  color: white;
+}
+
+.logo {
+  background-image: url(./media/logo\ utem.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  height: 60px;
+  width: 225px;
+  margin-left: 10px;
+}

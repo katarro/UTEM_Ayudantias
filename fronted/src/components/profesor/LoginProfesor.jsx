@@ -1,69 +1,100 @@
 import React, { useState } from 'react';
-import {Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Header from '../header/Header';
 
 export default function LoginProfesor() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isResettingPassword, setIsResettingPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Estado para el indicador de carga
+  const [errorMessage, setErrorMessage] = useState(''); // Estado para el mensaje de error
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (email === 'profesor@utem.cl') {
-      // Aquí deberías añadir la lógica para verificar la contraseña
-      console.log('Inicio de sesión exitoso');
-    } else {
-      console.log('Correo electrónico no válido');
+    setIsLoading(true); // Iniciar la carga
+    setErrorMessage(''); // Limpiar mensajes de error anteriores
+
+    try {
+      const response = await fetch('http://localhost:4000/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem('tokenProfesor', data.token); // Guarda el token
+        navigate('/profesor'); // Redirige al usuario
+      } else {
+        setErrorMessage(data.message || 'Credenciales incorrectas'); // Establecer mensaje de error
+      }
+    } catch (error) {
+      console.error('Error durante el inicio de sesión:', error);
+      setErrorMessage('No hay crdenciales validas');
+    } finally {
+      setIsLoading(false); // Finalizar la carga
     }
   };
 
   const handlePasswordReset = (e) => {
     e.preventDefault();
-    // Aquí deberías añadir la lógica para enviar el correo de restablecimiento de contraseña
+    // Lógica para enviar el correo de restablecimiento de contraseña
     console.log('Correo de restablecimiento enviado');
   };
 
   return (
-    <div className="admin-container">
-      <h1>Profesor</h1>
-      <form onSubmit={isResettingPassword ? handlePasswordReset : handleLogin}>
-        <div className="input-group">
-          <label htmlFor="email">Correo Electrónico</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            /* required */
-          />
-        </div>
-        {!isResettingPassword && (
-          <div className="input-group">
-            <label htmlFor="password">Contraseña</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              /* required */
-            />
-          </div>
-        )}
-        {/* <button type="submit" className="btn">
-          {isResettingPassword ? 'Restablecer Contraseña' : 'Iniciar Sesión'}
-        </button> */}
-        <Link to="/profesorin" className="btn btn-primary">Entrar</Link>
 
-      </form>
-      {!isResettingPassword ? (
-        <p className="reset-password" onClick={() => setIsResettingPassword(true)}>
-          ¿Olvidaste tu contraseña?
-        </p>
-      ) : (
-        <p className="reset-password" onClick={() => setIsResettingPassword(false)}>
-          Volver al inicio de sesión
-        </p>
-      )}
-    </div>
+    <>
+      <Header />
+      <div className="container-admin">
+        <div className="admin-container">
+          <h1>Profesor</h1>
+
+          {isLoading && <div>Cargando...</div>}
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
+
+          <form onSubmit={isResettingPassword ? handlePasswordReset : handleLogin}>
+            <div className="input-group">
+              <label htmlFor="email">Correo Electrónico</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              /* required */
+              />
+            </div>
+            {!isResettingPassword && (
+              <div className="input-group">
+                <label htmlFor="password">Contraseña</label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                /* required */
+                />
+              </div>
+            )}
+            <button type="submit" className="btn">
+          {isResettingPassword ? 'Restablecer Contraseña' : 'Iniciar Sesión'}
+        </button>
+
+          </form>
+          {!isResettingPassword ? (
+            <p className="reset-password" onClick={() => setIsResettingPassword(true)}>
+              ¿Olvidaste tu contraseña?
+            </p>
+          ) : (
+            <p className="reset-password" onClick={() => setIsResettingPassword(false)}>
+              Volver al inicio de sesión
+            </p>
+          )}
+        </div>
+      </div>
+    </>
+
   );
 }
 

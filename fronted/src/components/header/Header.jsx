@@ -1,33 +1,81 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
-///
-import { Navbar, Nav, Offcanvas } from 'react-bootstrap';
+import { Navbar, Nav, Offcanvas, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 
-///
 
 function Header() {
-  const [show, setShow] = useState(false);
 
+  const tokenProfesor = localStorage.getItem('tokenProfesor');
+  const tokenAdmin = localStorage.getItem('tokenAdmin');
+  const navigate = useNavigate();
+
+  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const closeSesion = () => {
+
+    tokenAdmin ? (
+      localStorage.removeItem('tokenAdmin')
+    ) : (
+      localStorage.removeItem('tokenProfesor')
+    )
+    navigate('/');
+  }
+
   return (
 
-    <Navbar bg="dark" variant="dark" fixed="top" expand="lg">
+    <Navbar bg="" variant="" fixed="" expand="lg" className='navbar'>
 
       <Navbar.Brand href="/"></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" className="d-lg-none" onClick={handleShow} />
       <Navbar.Collapse id="basic-navbar-nav" className="d-none d-lg-flex">
-          <Nav.Link as={Link} to="/" onClick={handleClose} className="menu-link">Inicio</Nav.Link>
+        <div className="logo"></div>
         <Nav className="ms-auto">
-          <Nav.Link as={Link} to="/postular" onClick={handleClose} className="menu-link">Postular</Nav.Link>
-          <Nav.Link as={Link} to="/estado" onClick={handleClose} className="menu-link">Ver Estado</Nav.Link>
-          <Nav.Link as={Link} to="/admin" onClick={handleClose} className="menu-link">Administrador</Nav.Link>
-          <Nav.Link as={Link} to="/login-profesor" onClick={handleClose} className="menu-link">Profesor</Nav.Link>
+
+
+          <Nav.Link as={Link} to="/" onClick={handleClose} className="menu-link">Inicio</Nav.Link>
+
+
+          {!tokenAdmin && !tokenProfesor ? (
+            <Nav.Link as={Link} to="/requisitos" onClick={handleClose} className="menu-link">Postular</Nav.Link>
+          ) : (<></>)}
+
+
+          {!tokenAdmin && !tokenProfesor ? (
+            <Nav.Link as={Link} to="/estado" onClick={handleClose} className="menu-link">Ver Estado</Nav.Link>
+          ) : (<></>)}
+
+          {tokenAdmin ? (
+            <Nav.Link as={Link} to="/requisitos-admin" onClick={handleClose} className="menu-link">Administrador</Nav.Link>
+          ) : <></>}
+
+          {tokenProfesor ? (
+            <Dropdown>
+              <Dropdown.Toggle as={Nav.Link} variant="" id="dropdown-profesor" className="menu-link">
+                Profesor
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item as={Link} to="/cambiar-contrasena">Cambiar contraseña</Dropdown.Item>
+                <Dropdown.Item as={Link} to="/profesor">Perfil</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          ) : <></>}
+
+
+          {!tokenAdmin && !tokenProfesor ? (
+            <Nav.Link as={Link} to="/login" onClick={handleClose} className="menu-link">Ingresar</Nav.Link>
+          ) : (<Nav.Link onClick={closeSesion} className="menu-link">Salir</Nav.Link>)}
+
+
+
         </Nav>
       </Navbar.Collapse>
+
       <Offcanvas show={show} onHide={handleClose} placement="end" className="d-lg-none">
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Menú</Offcanvas.Title>
@@ -35,9 +83,22 @@ function Header() {
         <Offcanvas.Body>
           <Nav className="flex-column">
             <Nav.Link as={Link} to="/" onClick={handleClose}>Inicio</Nav.Link>
-            <Nav.Link as={Link} to="/postular" onClick={handleClose}>Postular</Nav.Link>
+
+            {!tokenAdmin && !tokenProfesor ? (
+              <Nav.Link as={Link} to="/postular" onClick={handleClose}>Postular</Nav.Link>
+            ) : (<></>)}
+
             <Nav.Link as={Link} to="/estado" onClick={handleClose}>Ver Estado</Nav.Link>
-            <Nav.Link as={Link} to="/admin" onClick={handleClose}>Administrador</Nav.Link>
+
+            {tokenAdmin ? (<Nav.Link as={Link} to="/requisitos-admin" onClick={handleClose} >Administrador</Nav.Link>
+            ) : <></>}
+
+            {tokenProfesor ? (<Nav.Link as={Link} to="/profesor" onClick={handleClose} >Profesor</Nav.Link>
+            ) : <></>}
+
+            {!tokenAdmin && !tokenProfesor ? (<Nav.Link as={Link} to="/login" onClick={handleClose} >Ingresar</Nav.Link>
+            ) : (<Nav.Link onClick={closeSesion} >Salir</Nav.Link>)}
+
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>

@@ -1,21 +1,17 @@
 .footer {
   background-color: #f1f1f1;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
+  width: 100vw;
+
   text-align: center;
-  padding: 10px 0; /* Añadido padding vertical para más espacio */
 }
 
 .footer-text {
-  color: grey;
+  color: #021c36;
   margin: 0;
   font-size: small;
 }
 
 .footer-username {
-  color: #61dafb;
+  color: #021c36;
   font-weight: bold; /* Hace el nombre de usuario más destacado */
 }
