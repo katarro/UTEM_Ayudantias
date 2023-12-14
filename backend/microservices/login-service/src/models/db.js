@@ -1,12 +1,28 @@
-require('dotenv').config(); // Esta línea debe estar al principio para cargar las variables de entorno
+require('dotenv').config(); // Asegúrate de requerir dotenv al inicio si usas un archivo .env
 const { Sequelize } = require('sequelize');
 
-// Configuración de conexión a la base de datos
-const sequelize = new Sequelize("utem", "utem", "utem", {
-  host: 'localhost', // Usa localhost si estás fuera de Docker y has mapeado los puertos correctamente
-  port: "5432", // Asegúrate de que este puerto coincida con el mapeado en docker-compose.yml
-  dialect: 'postgres',
-});
+// Configuración de conexión a la base de datos utilizando variables de entorno
+const sequelize = new Sequelize(
+  process.env.POSTGRESQL_ADDON_DB, // Nombre de la base de datos
+  process.env.POSTGRESQL_ADDON_USER, // Usuario
+  process.env.POSTGRESQL_ADDON_PASSWORD, // Contraseña
+  {
+    host: process.env.POSTGRESQL_ADDON_HOST, // Host
+    port: process.env.POSTGRESQL_ADDON_PORT, // Puerto
+    dialect: 'postgres', // Dialecto de la base de datos
+  }
+);
 
+// Prueba la conexión
+async function testConnection() {
+  try {
+    await sequelize.authenticate();
+    console.log('Conexión establecida con éxito.');
+  } catch (error) {
+    console.error('No se pudo conectar a la base de datos:', error);
+  }
+}
+
+testConnection();
 
 module.exports = sequelize;
