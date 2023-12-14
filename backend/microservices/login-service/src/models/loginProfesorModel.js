@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("./db"); // Asegúrate de que esta ruta sea correcta para tu archivo de conexión
+const sequelize = require("./../../../../db"); // Asegúrate de que esta ruta sea correcta para tu archivo de conexión
 
 const Profesor = sequelize.define(
   "profesores", // Nombre de la tabla

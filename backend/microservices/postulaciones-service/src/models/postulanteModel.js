@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../models/db'); // Asegúrate de que esta ruta sea correcta para tu archivo de conexión
+const sequelize = require("./../../../../db"); // Asegúrate de que esta ruta sea correcta para tu archivo de conexión
 
 const Postulante = sequelize.define('postulantes', {
   // Aquí defines los atributos del modelo, basados en la estructura de tu tabla SQL
