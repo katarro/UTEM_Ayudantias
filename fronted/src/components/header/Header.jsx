@@ -54,14 +54,17 @@ function Header() {
           ) : <></>}
 
           {tokenProfesor ? (
+            <Nav.Link as={Link} to="/profesor" onClick={handleClose} className="menu-link">Profesor</Nav.Link>
+          ) : <></>}
+
+          {tokenProfesor || tokenAdmin ? (
             <Dropdown>
               <Dropdown.Toggle as={Nav.Link} variant="" id="dropdown-profesor" className="menu-link">
-                Profesor
+                Perfil
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
                 <Dropdown.Item as={Link} to="/cambiar-contrasena">Cambiar contraseña</Dropdown.Item>
-                <Dropdown.Item as={Link} to="/profesor">Perfil</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           ) : <></>}

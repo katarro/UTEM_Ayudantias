@@ -4,10 +4,10 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
 const Profesor = require("../models/loginProfesorModel"); // Importa el modelo
-sgMail.setApiKey('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');
+sgMail.setApiKey('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');
 exports.sendEmail = async (req, res) => {
   const { nombre, correo } = req.body;
-  
+
   const contrasena = crypto.randomBytes(3).toString("hex");
   const contrasenaHash = await bcrypt.hash(contrasena, 10);
 

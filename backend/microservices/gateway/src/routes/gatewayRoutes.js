@@ -26,6 +26,7 @@ router.get("/api/requisitos", postulacionesRoutes);
 router.get("/api/adminin", adminRoutes);
 router.get("/api/adminin/:rut", adminRoutes);
 router.put("/api/adminin/:rut", adminRoutes);
+router.patch("/api/adminin/seleccionar",adminRoutes);
 router.post("/api/adminin/requisitos", adminRoutes);
 router.delete("/api/adminin/requisito/:id", adminRoutes);
 

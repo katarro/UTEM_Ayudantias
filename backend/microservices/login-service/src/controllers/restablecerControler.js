@@ -2,7 +2,7 @@ require("dotenv").config();
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey('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');
+sgMail.setApiKey('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');
 
 const Profesor = require("../models/loginProfesorModel"); // Importa el modelo de profesor
 const Administrador = require("../models/loginAdminModel"); // Importa el modelo de administrador

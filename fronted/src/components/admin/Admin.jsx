@@ -4,7 +4,7 @@ import Header from '../header/Header';
 import './Admin.css'
 
 export default function Administrador() {
-  const API_URL = "http://13.48.106.173:8080/"
+  const API_URL = "http://13.48.106.173:8080"
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,7 +28,7 @@ export default function Administrador() {
         body: JSON.stringify({ email, password })
       });
       const data = await response.json();
-      
+      console.log("Hola 1")
       if (response.ok) {
         // Verificar el tipo de usuario y guardar el token correspondiente
         if (data.userType === 'administrador') {

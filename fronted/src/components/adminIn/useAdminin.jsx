@@ -12,7 +12,7 @@ const useAdminin = () => {
   useEffect(() => {
     const cargarPostulantes = async () => {
       try {
-        const response = await fetch('http://13.48.106.173:8080/');
+        const response = await fetch('http://13.48.106.173:8080/api/adminin');
         if (!response.ok) {
           throw new Error('Hubo un problema al obtener los datos');
         }

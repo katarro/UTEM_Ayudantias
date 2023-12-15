@@ -103,12 +103,45 @@ const deleteRequirement = async (req, res) => {
 
     res.status(200).json({ message: "Requisito eliminado con éxito" });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Error al eliminar el requisito",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Error al eliminar el requisito",
+      error: error.message,
+    });
+  }
+};
+
+const updateSellection = async (req, res) => {
+  try {
+    // Obtener el ID del postulante y el nuevo valor de pre_aprobacion desde el cuerpo de la solicitud
+    const { rut, preAprobacion } = req.body;
+    console.log(rut)
+    console.log(preAprobacion)
+
+    // Verifica que se haya proporcionado el ID del postulante y el nuevo valor de pre_aprobacion
+    if (!rut || preAprobacion === undefined) {
+      return res
+        .status(400)
+        .send({ message: "Faltan datos necesarios para la actualización." });
+    }
+
+    // Actualizar el campo pre_aprobacion del postulante
+    const resultado = await Postulante.update(
+      { pre_aprobacion: preAprobacion },
+      {
+        where: { rut: rut },
+      }
+    );
+
+    if (resultado[0] === 0) {
+      // Ningún registro fue actualizado (posiblemente porque no se encontró el postulante)
+      return res.status(404).send({ message: "Postulante no encontrado." });
+    }
+
+    // Enviar respuesta exitosa
+    res.send({ message: "Pre-aprobación actualizada con éxito." });
+  } catch (error) {
+    console.error("Error al actualizar la selección:", error);
+    res.status(500).send({ message: "Error interno del servidor." });
   }
 };
 
@@ -117,4 +150,5 @@ module.exports = {
   updateState,
   CreateRequirement,
   deleteRequirement,
+  updateSellection,
 };

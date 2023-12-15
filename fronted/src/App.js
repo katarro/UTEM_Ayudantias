@@ -61,9 +61,7 @@ function App() {
           <Route
             path="/adminin/:rut"
             element={
-              <RutaProtegida>
                 <PostulanteDetails />
-              </RutaProtegida>
             }
           />
           <Route
