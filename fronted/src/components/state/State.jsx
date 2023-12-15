@@ -17,7 +17,7 @@ export default function State() {
   const verificarPostulacion = async () => {
     const rut = formData.rut;
     console.log(rut)
-    const url = `http://localhost:4000/api/estado/${rut}`;
+    const url = `http://13.48.106.173:8080/api/estado/${rut}`;
 
     try {
       const response = await fetch(url);

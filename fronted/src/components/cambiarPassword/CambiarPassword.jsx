@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 
 
 export default function CambiarPassword() {
-  const API_URL = "http://localhost:4000"
+  const API_URL = "http://13.48.106.173:8080/"
   const [contraseñaActual, setContraseñaActual] = useState('');
   const [nuevaContraseña, setNuevaContraseña] = useState('');
   const [repetirNuevaContraseña, setRepetirNuevaContraseña] = useState('');

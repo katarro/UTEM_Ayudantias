@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../header/Header";
 import './RequisitosAdmin.css';
 import { Link } from "react-router-dom";
-// delete http://127.0.0.1:4000/api/adminin/requisito/:id
+
 
 export default function RequisitosAdmin() {
     const [requisitos, setRequisitos] = useState([]);
@@ -10,7 +10,7 @@ export default function RequisitosAdmin() {
 
     useEffect(() => {
         const cargarRequisitos = async () => {
-            fetch('http://127.0.0.1:4000/api/requisitos')
+            fetch('http://13.48.106.173:8080/api/requisitos')
                 .then(response => response.json())
                 .then(data => {
                     console.log(data.requisitos)
@@ -33,7 +33,7 @@ export default function RequisitosAdmin() {
     const confirmarYEliminarRequisito = (id) => {
         const confirmacion = window.confirm("¿Estás seguro de que deseas eliminar este requisito?");
         if (confirmacion) {
-            fetch(`http://127.0.0.1:4000/api/adminin/requisito/${id}`, {
+            fetch(`http://13.48.106.173:8080/api/adminin/requisito/${id}`, {
                 method: 'DELETE',
             })
                 .then(response => {
@@ -54,7 +54,7 @@ export default function RequisitosAdmin() {
         if (nuevoRequisito) {
             const requisitoObjeto = { requisito: nuevoRequisito };
 
-            fetch('http://127.0.0.1:4000/api/adminin/requisitos', {
+            fetch('http://13.48.106.173:8080/api/adminin/requisitos', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -31,7 +31,7 @@ export default function RegistrarProfesor() {
         console.log(formData)
 
         try {
-            const response = await fetch('http://localhost:4000/api/register-profesor', {
+            const response = await fetch('http://13.48.106.173:8080/api/register-profesor', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

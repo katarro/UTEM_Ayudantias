@@ -16,7 +16,7 @@ export default function Requisitos() {
     useEffect(() => {
 
         const cargarRequisitos = async () => {
-            fetch('http://127.0.0.1:4000/api/requisitos')
+            fetch('http://13.48.106.173:8080/api/requisitos')
                 .then(response => response.json())
                 .then(data => {
                     console.log(data.requisitos)

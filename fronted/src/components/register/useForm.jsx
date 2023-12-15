@@ -20,7 +20,7 @@ export const useForm = (initialState = {}) => {
   };
 
   const enviarDatos = async (datosFormulario) => {
-    const response = await fetch('http://localhost:4000/api/postular', {
+    const response = await fetch('http://13.48.106.173:8080/api/postular', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

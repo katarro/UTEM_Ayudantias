@@ -3,12 +3,14 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Profesor = require("../models/loginProfesorModel"); // Importa el modelo
 const Administrador = require("../models/loginAdminModel");
+const admin = 'mauro.castillo@utem.cl'
 
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const contrasena = password;
     const correo = email;
+
 
     // Buscar en profesores
     const profesor = await Profesor.findOne({ where: { correo } });
@@ -22,6 +24,9 @@ exports.login = async (req, res) => {
     } else {
       // Buscar en administradores si no se encuentra en profesores
       const administrador = await Administrador.findOne({ where: { correo } });
+
+       contrasena = crypto.createHash('sha256').update(contrasena).digest('hex');
+
 
       if (administrador && contrasena === administrador.contrasena) {
         // Incluir userType y correo en el token
