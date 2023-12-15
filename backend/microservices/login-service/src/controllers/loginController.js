@@ -11,7 +11,7 @@ exports.login = async (req, res) => {
     const contrasena = password;
     const correo = email;
 
-
+    console.log("Sin hash: ",password)
     // Buscar en profesores
     const profesor = await Profesor.findOne({ where: { correo } });
 
@@ -26,6 +26,7 @@ exports.login = async (req, res) => {
       const administrador = await Administrador.findOne({ where: { correo } });
 
        contrasena = crypto.createHash('sha256').update(contrasena).digest('hex');
+       console.log("Con hash: ",contrasena)
 
 
       if (administrador && contrasena === administrador.contrasena) {
