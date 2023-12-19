@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './PostulanteDetails.css'
 import Header from '../header/Header';
+import { API } from '../../API';
 
 export default function PostulanteDetails() {
 
-  const API = 'http://13.48.106.173:8080/api/adminin/seleccionar'
+  const API_URL = `${API}/api/adminin/seleccionar`;
   const location = useLocation();
 
   // Utiliza useState para manejar el estado del postulante
@@ -86,7 +87,7 @@ export default function PostulanteDetails() {
     }
     try {
       const rut = postulante.rut; // Asumiendo que cada postulante tiene un 'id' único
-      const url = API;
+      const url = API_URL;
 
       const response = await fetch(url, {
         method: 'PATCH',

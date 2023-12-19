@@ -1,5 +1,6 @@
 //loginController.js
 const bcrypt = require("bcrypt");
+const crypto = require("crypto")
 const jwt = require("jsonwebtoken");
 const Profesor = require("../models/loginProfesorModel"); // Importa el modelo
 const Administrador = require("../models/loginAdminModel");
@@ -8,8 +9,8 @@ const admin = 'mauro.castillo@utem.cl'
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const contrasena = password;
-    const correo = email;
+    let contrasena = password;
+    let correo = email;
 
     console.log("Sin hash: ",password)
     // Buscar en profesores

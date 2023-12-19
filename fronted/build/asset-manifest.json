@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.038b826a.css",
-    "main.js": "/static/js/main.ee585898.js",
+    "main.js": "/static/js/main.2cbbfa0b.js",
     "static/js/787.a38931a2.chunk.js": "/static/js/787.a38931a2.chunk.js",
     "static/media/home-foto.jpg": "/static/media/home-foto.4e4e244fcdf1aa4ea86c.jpg",
     "static/media/logo utem.png": "/static/media/logo utem.fde1c4a3c564623b12d5.png",
     "index.html": "/index.html",
     "main.038b826a.css.map": "/static/css/main.038b826a.css.map",
-    "main.ee585898.js.map": "/static/js/main.ee585898.js.map",
+    "main.2cbbfa0b.js.map": "/static/js/main.2cbbfa0b.js.map",
     "787.a38931a2.chunk.js.map": "/static/js/787.a38931a2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.038b826a.css",
-    "static/js/main.ee585898.js"
+    "static/js/main.2cbbfa0b.js"
   ]
 }

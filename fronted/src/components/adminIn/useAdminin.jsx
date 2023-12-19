@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { API } from '../../API';
 
 const useAdminin = () => {
+
   const [postulantes, setPostulantes] = useState([]);
   const [filteredPostulantes, setFilteredPostulantes] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,7 +14,7 @@ const useAdminin = () => {
   useEffect(() => {
     const cargarPostulantes = async () => {
       try {
-        const response = await fetch('http://13.48.106.173:8080/api/adminin');
+        const response = await fetch(`${API}/api/adminin`);
         if (!response.ok) {
           throw new Error('Hubo un problema al obtener los datos');
         }

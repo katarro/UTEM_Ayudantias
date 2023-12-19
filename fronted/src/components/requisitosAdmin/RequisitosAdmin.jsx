@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import Header from "../header/Header";
 import './RequisitosAdmin.css';
 import { Link } from "react-router-dom";
-
+import { API } from "../../API";
 
 export default function RequisitosAdmin() {
+    
+    
     const [requisitos, setRequisitos] = useState([]);
     const [nuevoRequisito, setNuevoRequisito] = useState("");
 
     useEffect(() => {
         const cargarRequisitos = async () => {
-            fetch('http://13.48.106.173:8080/api/requisitos')
+            fetch(`${API}/api/requisitos`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data.requisitos)
@@ -33,7 +35,7 @@ export default function RequisitosAdmin() {
     const confirmarYEliminarRequisito = (id) => {
         const confirmacion = window.confirm("¿Estás seguro de que deseas eliminar este requisito?");
         if (confirmacion) {
-            fetch(`http://13.48.106.173:8080/api/adminin/requisito/${id}`, {
+            fetch(`${API}/api/adminin/requisito/${id}`, {
                 method: 'DELETE',
             })
                 .then(response => {
@@ -54,7 +56,7 @@ export default function RequisitosAdmin() {
         if (nuevoRequisito) {
             const requisitoObjeto = { requisito: nuevoRequisito };
 
-            fetch('http://13.48.106.173:8080/api/adminin/requisitos', {
+            fetch(`${API}/api/adminin/requisitos`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Header from '../header/Header';
 import { Link } from 'react-router-dom'
 import './Requisitos.css';
-
+import { API } from '../../API';
 
 const fechaInicio = new Date('2023-01-10');
 const fechaFin = new Date('2023-12-31');
 
 export default function Requisitos() {
+    
     const [requisitos, setRequisitos] = useState([]); 
     const [cumpleRequisitos, setCumpleRequisitos] = useState(false);
     const [habilitarPostulacion, setHabilitarPostulacion] = useState(false);
@@ -16,7 +17,8 @@ export default function Requisitos() {
     useEffect(() => {
 
         const cargarRequisitos = async () => {
-            fetch('http://13.48.106.173:8080/api/requisitos')
+            
+            fetch(`${API}/api/requisitos`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data.requisitos)

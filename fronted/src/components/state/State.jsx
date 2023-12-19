@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Cleave from 'cleave.js/react';
 import "./State.css";
 import Header from '../header/Header'
-
+import { API } from '../../API';
 export default function State() {
   const [estadoPostulacion, setEstadoPostulacion] = useState('');
   const [formData, setFormData] = useState({
@@ -17,7 +17,7 @@ export default function State() {
   const verificarPostulacion = async () => {
     const rut = formData.rut;
     console.log(rut)
-    const url = `http://13.48.106.173:8080/api/estado/${rut}`;
+    const url = `${API}/api/estado/${rut}`;
 
     try {
       const response = await fetch(url);

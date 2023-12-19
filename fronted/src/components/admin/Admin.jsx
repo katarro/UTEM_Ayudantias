@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Header from '../header/Header';
 import './Admin.css'
+import { API } from '../../API';
 
 export default function Administrador() {
-  const API_URL = "localhost:4000"
+  const API_URL = API
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

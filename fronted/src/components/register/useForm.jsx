@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
+import { API } from '../../API';
 
 export const useForm = (initialState = {}) => {
+  const API_URL = `${API}/api/postular`;
+
   const [formData, setFormData] = useState(initialState);
 
   const validarYConvertirDatos = (formData) => {
@@ -20,7 +23,7 @@ export const useForm = (initialState = {}) => {
   };
 
   const enviarDatos = async (datosFormulario) => {
-    const response = await fetch('http://13.48.106.173:8080/api/postular', {
+    const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

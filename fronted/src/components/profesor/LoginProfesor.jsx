@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Header from '../header/Header';
+import { API } from '../../API';
 
 export default function LoginProfesor() {
+  const API_URL = `${API}/api/login`;
+  
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +19,7 @@ export default function LoginProfesor() {
     setErrorMessage(''); // Limpiar mensajes de error anteriores
 
     try {
-      const response = await fetch('http://13.48.106.173:8080/api/login', {
+      const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
