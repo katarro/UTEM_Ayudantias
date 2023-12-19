@@ -4,7 +4,7 @@ import Header from '../header/Header';
 import './Admin.css'
 
 export default function Administrador() {
-  const API_URL = "http://13.48.106.173:8080"
+  const API_URL = "localhost:4000"
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
