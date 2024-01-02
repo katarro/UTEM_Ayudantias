@@ -3,7 +3,8 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const sgMail = require("@sendgrid/mail");
 const config = require("./config")
-sgMail.setApiKey(config.API_EMAIL);
+const api = process.env.API_EMAIL;
+sgMail.setApiKey( api|| config.API_EMAIL);
 
 const Profesor = require("../models/loginProfesorModel"); // Importa el modelo de profesor
 const Administrador = require("../models/loginAdminModel"); // Importa el modelo de administrador
