@@ -4,9 +4,12 @@ import './Header.css';
 import { Navbar, Nav, Offcanvas, Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
-
+import { useGenerarPdf } from './useGenerarPdf';
 
 function Header() {
+
+  const [generarPDF] = useGenerarPdf()
+
 
   const tokenProfesor = localStorage.getItem('tokenProfesor');
   const tokenAdmin = localStorage.getItem('tokenAdmin');
@@ -39,6 +42,23 @@ function Header() {
 
           <Nav.Link as={Link} to="/" onClick={handleClose} className="menu-link">Inicio</Nav.Link>
 
+          {tokenProfesor || tokenAdmin ? (
+            <Dropdown>
+              <Dropdown.Toggle as={Nav.Link} variant="" id="dropdown-profesor" className="menu-link">
+                Perfil
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item as={Link} to="/cambiar-contrasena">Cambiar contraseña</Dropdown.Item>
+                <Dropdown.Item onClick={generarPDF}>Generar PDF</Dropdown.Item>
+              </Dropdown.Menu>
+
+
+            </Dropdown>
+          ) : <></>}
+
+
+
 
           {!tokenAdmin && !tokenProfesor ? (
             <Nav.Link as={Link} to="/requisitos" onClick={handleClose} className="menu-link">Postular</Nav.Link>
@@ -57,17 +77,7 @@ function Header() {
             <Nav.Link as={Link} to="/profesor" onClick={handleClose} className="menu-link">Profesor</Nav.Link>
           ) : <></>}
 
-          {tokenProfesor || tokenAdmin ? (
-            <Dropdown>
-              <Dropdown.Toggle as={Nav.Link} variant="" id="dropdown-profesor" className="menu-link">
-                Perfil
-              </Dropdown.Toggle>
 
-              <Dropdown.Menu>
-                <Dropdown.Item as={Link} to="/cambiar-contrasena">Cambiar contraseña</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          ) : <></>}
 
 
           {!tokenAdmin && !tokenProfesor ? (
@@ -88,20 +98,25 @@ function Header() {
             <Nav.Link as={Link} to="/" onClick={handleClose}>Inicio</Nav.Link>
 
             {!tokenAdmin && !tokenProfesor ? (
-              <Nav.Link as={Link} to="/postular" onClick={handleClose}>Postular</Nav.Link>
-            ) : (<></>)}
+              <Nav.Link as={Link} to="/requisitos" onClick={handleClose}>Postular</Nav.Link>
+            ) : null}
 
             <Nav.Link as={Link} to="/estado" onClick={handleClose}>Ver Estado</Nav.Link>
 
             {tokenAdmin ? (<Nav.Link as={Link} to="/requisitos-admin" onClick={handleClose} >Administrador</Nav.Link>
-            ) : <></>}
+            ) : null}
 
             {tokenProfesor ? (<Nav.Link as={Link} to="/profesor" onClick={handleClose} >Profesor</Nav.Link>
-            ) : <></>}
+            ) : null}
 
-            {!tokenAdmin && !tokenProfesor ? (<Nav.Link as={Link} to="/login" onClick={handleClose} >Ingresar</Nav.Link>
-            ) : (<Nav.Link onClick={closeSesion} >Salir</Nav.Link>)}
 
+            {tokenAdmin ? (<Nav.Link as={Link} to="/cambiar-contrasena" onClick={handleClose} >Cambiar Contraseña</Nav.Link>) : null}
+            {tokenAdmin ? (<Nav.Link onClick={generarPDF} >Generar PDF</Nav.Link>) : null}
+
+            {!tokenAdmin && !tokenProfesor ?
+              (<Nav.Link as={Link} to="/login" onClick={handleClose} >Ingresar</Nav.Link>
+              ) :
+              (<Nav.Link onClick={closeSesion} >Salir</Nav.Link>)}
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>

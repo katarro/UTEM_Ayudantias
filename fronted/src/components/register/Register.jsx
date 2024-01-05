@@ -21,16 +21,18 @@ export default function Register() {
 
 
   const carreraOptions = [
-    { value: "21049", label: "21049 - Ciencia de Datos" },
-    { value: "21030", label: "21030 - Ingeniería en Informática" },
-    { value: "21041", label: "21041 - Ingeniería Civil en Computación mención Informática" },
-
+    { value: "21030 - Ingeniería en Informática", label: "21030 - Ingeniería en Informática" },
+    { value: "21041 - Ingeniería Civil en Computación mención Informática", label: "21041 - Ingeniería Civil en Computación mención Informática" },
+    { value: "21049 - Ingeniería Civil en Ciencias de Datos", label: "21049 - Ingeniería Civil en Ciencias de Datos" },
   ];
 
   const asignaturaOptions = [
-    { value: "Introducción a Computación", label: "Introducción a Computación" },
-    { value: "Algoritmos y Programación", label: "Algoritmos y Programación" },
-    { value: "Estructura de Datos", label: "Estructura de Datos" }
+    { value: "Introducción a la Ingeniería", label: "INFB8010 - Introducción a la Ingeniería" },
+    { value: "lgoritmos y Programación", label: "INFB8021 - Algoritmos y Programación" },
+    { value: "Estructura de Datos", label: "INFB8030 - Estructura de Datos" },
+    { value: "Lenguajes de Programación", label: "INFB8040 - Lenguajes de Programación" },
+    { value: "INFB8050 - Bases de Datos", label: "INFB8050 - Bases de Datos" },
+    { value: "Sistemas de Información", label: "INFB8062 - Sistemas de Información" },
   ];
 
   return (

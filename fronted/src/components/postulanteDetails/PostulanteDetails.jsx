@@ -32,7 +32,7 @@ export default function PostulanteDetails() {
     }
     try {
       const rut = postulante.rut;
-      const url = `http://13.48.106.173:8080/api/adminin/${rut}`;
+      const url = `${API}/api/adminin/${rut}`;
 
       const response = await fetch(url, {
         method: 'PUT',

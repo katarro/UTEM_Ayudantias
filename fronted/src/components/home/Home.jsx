@@ -26,7 +26,7 @@ export default function Home() {
             <h1>POSTULACION DE AYUDANTIAS</h1>
             <p>¿Deseas ser ayudante?</p>
             <div className="button-container">
-              <Link to="/postular" className="btn btn-primary">Postular</Link>
+              <Link to="/requisitos" className="btn btn-primary">Postular</Link>
             </div>
 
           </div>

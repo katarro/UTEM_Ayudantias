@@ -1,5 +1,25 @@
+require("dotenv").config();
+const sgMail = require("@sendgrid/mail");
 const Postulante = require("../models/postulanteModel");
 const Requisitos = require("../models/requisitosModel");
+const PDFDocument = require("pdfkit");
+const api = process.env.API_EMAIL;
+sgMail.setApiKey(api || config.API_EMAIL);
+
+const sendEmail = async (state,correo) => {
+  // Configurar el mensaje de correo electrónico
+
+  const msg = {
+    to: correo,
+    from: "rcastillor@utem.cl", // Reemplaza con tu dirección de correo verificada en SendGrid
+    subject: "Estado de su Solicitud",
+    text: `Hola,\n\nEl estado de su solicitud es: ${state}\n.`,
+  };
+
+  // Enviar el correo electrónico
+  await sgMail.send(msg);
+  res.status(200).send("Correo con la nueva contraseña temporal enviado");
+};
 
 const consultaAll = async (req, res) => {
   try {
@@ -25,11 +45,13 @@ const updateState = async (req, res) => {
     const { rut } = req.params; // Acceder al RUT desde los parámetros de la ruta
     const { estado, observacion } = req.body; // Acceder al estado desde el cuerpo de la solicitud
     console.log("body: ", req.body);
-    console.log("estado: ", estado);
-    console.log("observacion: ", observacion);
+
+
 
     // Buscar el postulante por RUT y actualizar su estado
     const postulante = await Postulante.findOne({ where: { rut } });
+    const correo = postulante.correo;
+    console.log(correo);
 
     if (!postulante) {
       return res.status(404).json({ mensaje: "Postulante no encontrado" });
@@ -38,8 +60,9 @@ const updateState = async (req, res) => {
     postulante.estado = estado; // Actualizar el estado
     postulante.observacion = observacion;
     await postulante.save(); // Guardar los cambios en la base de datos
-
     res.json({ mensaje: "Estado actualizado con éxito", postulante });
+
+    sendEmail(estado,correo);
   } catch (error) {
     res
       .status(500)
@@ -114,8 +137,8 @@ const updateSellection = async (req, res) => {
   try {
     // Obtener el ID del postulante y el nuevo valor de pre_aprobacion desde el cuerpo de la solicitud
     const { rut, preAprobacion } = req.body;
-    console.log(rut)
-    console.log(preAprobacion)
+    console.log(rut);
+    console.log(preAprobacion);
 
     // Verifica que se haya proporcionado el ID del postulante y el nuevo valor de pre_aprobacion
     if (!rut || preAprobacion === undefined) {
@@ -145,12 +168,67 @@ const updateSellection = async (req, res) => {
   }
 };
 
+const generatePdf = async (req, res) => {
+  try {
+    // Realizar operación de consulta en la base de datos usando Sequelize
+    const postulantes = await Postulante.findAll({
+      where: {
+        pre_aprobacion: true,
+      },
+    });
+
+    // Crear un documento PDF
+    const doc = new PDFDocument();
+    let filename = "example";
+    filename = encodeURIComponent(filename) + ".pdf";
+    res.setHeader(
+      "Content-disposition",
+      'attachment; filename="' + filename + '"'
+    );
+    res.setHeader("Content-type", "application/pdf");
+
+    // Escribir los datos en el documento
+    postulantes.forEach((postulante) => {
+      // Asegúrate de cambiar 'tu_columna' por el nombre real de la columna que deseas imprimir
+      var evaluacionFinal;
+      var carrera;
+      postulante.dataValues.pre_aprobacion ? (evaluacionFinal = "Si") : "No";
+
+      if (postulante.dataValues.codigo_carrera === 21030) {
+        carrera = " Ingeniería en Informática";
+      }
+      if (postulante.dataValues.codigo_carrera === 21041) {
+        carrera = " Ingeniería Civil en Computación mención Informática";
+      }
+      if (postulante.dataValues.codigo_carrera === 21049) {
+        carrera = " Ingeniería Civil en Ciencias de Datos";
+      }
+
+      doc.text("Nombre: " + postulante.dataValues.nombre);
+      doc.text("Rut: " + postulante.dataValues.rut);
+      doc.text("Asignatura: " + postulante.dataValues.asignatura);
+      doc.text("Evaluación de Profesor: " + evaluacionFinal);
+      doc.text(
+        "Carrera: " + postulante.dataValues.codigo_carrera + "-" + carrera
+      );
+
+      doc.moveDown();
+    });
+
+    doc.pipe(res);
+    doc.end();
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error al generar el PDF");
+  }
+};
+
 //hola mundo
 module.exports = {
-
   consultaAll,
   updateState,
   CreateRequirement,
   deleteRequirement,
   updateSellection,
+  generatePdf,
 };

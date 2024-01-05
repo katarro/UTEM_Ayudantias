@@ -5,7 +5,7 @@ import './Requisitos.css';
 import { API } from '../../API';
 
 const fechaInicio = new Date('2023-01-10');
-const fechaFin = new Date('2023-12-31');
+const fechaFin = new Date('2024-12-31');
 
 export default function Requisitos() {
     
@@ -49,24 +49,24 @@ export default function Requisitos() {
             <div className="requisitos-container">
 
                 <div className="requisitos-title">
-                    <h1 id='requisitos-h1'>Requisitos de Postulación</h1>
+                    <h1 id='requisitos-h1'>Fecha de Postulación</h1><br /><br />
                 </div>
                 <div className="requisitos-list-container">
 
-                    <ul id='requisitos-ul'>
+                    {/* <ul id='requisitos-ul'>
                         {requisitos.map((item, index) => (
                             <li id="requisitos-li" key={index}>{item.requisito}</li>
                         ))}
-                    </ul>
-                    <p>Periodo de Postulación: {fechaInicio.toLocaleDateString('es-ES', opcionesFecha)} - {fechaFin.toLocaleDateString('es-ES', opcionesFecha)}</p>
+                    </ul> */}
+                    <p className='fecha-postulacion'>{fechaInicio.toLocaleDateString('es-ES', opcionesFecha)} - {fechaFin.toLocaleDateString('es-ES', opcionesFecha)}</p><br />
 
-                    <div className="requisitos-checkbox-container">
+                    {/* <div className="requisitos-checkbox-container">
                         <input type="checkbox" id="cumpleRequisitos" checked={cumpleRequisitos} onChange={()=>setCumpleRequisitos(!cumpleRequisitos)} />
                         <label htmlFor="cumpleRequisitos"><b>Confirmo que cumplo con todos los requisitos</b></label>
-                    </div>
+                    </div> */}
 
                     <div className="requisitos-button">
-                        {habilitarPostulacion && cumpleRequisitos && <Link to="/postular" className="link-as-button">Postular Ahora</Link>}
+                        {habilitarPostulacion  && <Link to="/postular" className="link-as-button">Postular Ahora</Link>}
 
                     </div>
                 </div>

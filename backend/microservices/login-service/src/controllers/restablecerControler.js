@@ -35,7 +35,7 @@ exports.restablecerPassword = async (req, res) => {
     // Configurar el mensaje de correo electrónico
     const msg = {
       to: correo,
-      from: "fcastro@utem.cl", // Reemplaza con tu dirección de correo verificada en SendGrid
+      from: "rcastillor@utem.cl", // Reemplaza con tu dirección de correo verificada en SendGrid
       subject: "Restablecimiento de contraseña",
       text: `Hola,\n\nTu nueva contraseña temporal es: ${nuevaContrasena}\nPor favor cambia esta contraseña lo antes posible.`,
     };
@@ -43,6 +43,8 @@ exports.restablecerPassword = async (req, res) => {
     // Enviar el correo electrónico
     await sgMail.send(msg);
     res.status(200).send("Correo con la nueva contraseña temporal enviado");
+
+    
   } catch (error) {
     console.error("Error al procesar la solicitud:", error);
     res.status(500).send("Error al procesar la solicitud");
